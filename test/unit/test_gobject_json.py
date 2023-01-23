@@ -69,7 +69,7 @@ def test_valid_json(proposal_hex_old, proposal_hex_new, trigger_hex_old, trigger
     ) is False
 
 
-def test_extract_object():
+def test_extract_object(proposal_hex_old, proposal_hex_new, trigger_hex_old, trigger_hex_new):
     from decimal import Decimal
     import binascii
 
@@ -86,11 +86,11 @@ def test_extract_object():
     }
 
     # test proposal old format
-    json_str = binascii.unhexlify(proposal_hex_old()).decode('utf-8')
+    json_str = binascii.unhexlify(proposal_hex_old).decode('utf-8')
     assert gobject_json.extract_object(json_str) == expected
 
     # test proposal new format
-    json_str = binascii.unhexlify(proposal_hex_new()).decode('utf-8')
+    json_str = binascii.unhexlify(proposal_hex_new).decode('utf-8')
     assert gobject_json.extract_object(json_str) == expected
 
     # same expected trigger data for both new & old formats
@@ -102,9 +102,9 @@ def test_extract_object():
     }
 
     # test trigger old format
-    json_str = binascii.unhexlify(trigger_hex_old()).decode('utf-8')
+    json_str = binascii.unhexlify(trigger_hex_old).decode('utf-8')
     assert gobject_json.extract_object(json_str) == expected
 
     # test trigger new format
-    json_str = binascii.unhexlify(trigger_hex_new()).decode('utf-8')
+    json_str = binascii.unhexlify(trigger_hex_new).decode('utf-8')
     assert gobject_json.extract_object(json_str) == expected
