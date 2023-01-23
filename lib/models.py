@@ -267,7 +267,7 @@ class Setting(BaseModel):
 
 
 class Proposal(GovernanceClass, BaseModel):
-    governance_object = ForeignKeyField(GovernanceObject, related_name='proposals', on_delete='CASCADE', on_update='CASCADE')
+    governance_object = ForeignKeyField(GovernanceObject, backref='proposals', on_delete='CASCADE', on_update='CASCADE')
     name = CharField(default='', max_length=40)
     url = CharField(default='')
     start_epoch = IntegerField()
@@ -419,7 +419,7 @@ class Proposal(GovernanceClass, BaseModel):
 
 
 class Superblock(BaseModel, GovernanceClass):
-    governance_object = ForeignKeyField(GovernanceObject, related_name='superblocks', on_delete='CASCADE', on_update='CASCADE')
+    governance_object = ForeignKeyField(GovernanceObject, backref='superblocks', on_delete='CASCADE', on_update='CASCADE')
     event_block_height = IntegerField()
     payment_addresses = TextField()
     payment_amounts = TextField()
@@ -565,9 +565,9 @@ class Outcome(BaseModel):
 
 
 class Vote(BaseModel):
-    governance_object = ForeignKeyField(GovernanceObject, related_name='votes', on_delete='CASCADE', on_update='CASCADE')
-    signal = ForeignKeyField(Signal, related_name='votes', on_delete='CASCADE', on_update='CASCADE')
-    outcome = ForeignKeyField(Outcome, related_name='votes', on_delete='CASCADE', on_update='CASCADE')
+    governance_object = ForeignKeyField(GovernanceObject, backref='votes', on_delete='CASCADE', on_update='CASCADE')
+    signal = ForeignKeyField(Signal, backref='votes', on_delete='CASCADE', on_update='CASCADE')
+    outcome = ForeignKeyField(Outcome, backref='votes', on_delete='CASCADE', on_update='CASCADE')
     voted_at = DateTimeField(default=datetime.datetime.utcnow())
     created_at = DateTimeField(default=datetime.datetime.utcnow())
     updated_at = DateTimeField(default=datetime.datetime.utcnow())
