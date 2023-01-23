@@ -107,13 +107,13 @@ def test_deterministic_masternode_elections(current_block_hash, mn_list):
     assert winner == '656695ed867e193490261bea74783f0a39329ff634a10a9fb6f131807eeca744-1'
 
 
-def test_parse_masternode_status_vin():
+def test_parse_masternode_status_vin(mn_status_good, mn_status_bad):
     from syscoinlib import parse_masternode_status_vin
-    status = mn_status_good()
+    status = mn_status_good
     vin = parse_masternode_status_vin(status['vin'])
     assert vin == 'f68a2e5d64f4a9be7ff8d0fbd9059dcd3ce98ad7a19a9260d1d6709127ffac56-1'
 
-    status = mn_status_bad()
+    status = mn_status_bad
     vin = parse_masternode_status_vin(status['vin'])
     assert vin is None
 
