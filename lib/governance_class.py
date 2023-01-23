@@ -69,7 +69,7 @@ class GovernanceClass(object):
     def serialisable_fields(self):
         # Python is so not very elegant...
         pk_column = self._meta.primary_key.column_name
-        fk_columns = [fk.column_name for fk in self._meta.remote_field.values()]
+        fk_columns = [fk.column_name for fk in self._meta.backrefs.values()]
         do_not_use = [pk_column]
         do_not_use.extend(fk_columns)
         do_not_use.append('object_hash')
