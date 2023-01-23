@@ -6,19 +6,19 @@ sys.path.append(os.path.normpath(os.path.join(os.path.dirname(__file__), '../../
 
 
 @pytest.fixture
-def main_valid_syscoin_address():
+def mn_valid_syscoin_address():
     return 'SZKgggyzWqmJFcafSyLykhsYKfuQ13idQu'
 
 @pytest.fixture
-def test_valid_syscoin_address():
+def tn_valid_syscoin_address():
     return 'TSFMFYoPjz9xg9fUYXxxWEeEDCQ3qSH1aJ'
 
 @pytest.fixture
-def main_invalid_syscoin_address():
+def mn_invalid_syscoin_address():
     return 'SZKgggyzWqmJFcafSyLykhsYKfuQ13idQv'
 
 @pytest.fixture
-def test_invalid_syscoin_address():
+def tn_invalid_syscoin_address():
     return 'TSFMFYoPjz9xg9fUYXxxWEeEDCQ3qSH1aK'
 
 
@@ -66,11 +66,11 @@ def mn_status_bad():
 # ========================================================================
 
 
-def test_valid_syscoin_address(main_valid_syscoin_address, test_valid_syscoin_address):
+def test_valid_syscoin_address(mn_valid_syscoin_address, tn_valid_syscoin_address):
     from syscoinlib import is_valid_syscoin_address
 
-    main = main_valid_syscoin_address
-    test = test_valid_syscoin_address
+    main = mn_valid_syscoin_address
+    test = tn_valid_syscoin_address
 
     assert is_valid_syscoin_address(main) is True
     assert is_valid_syscoin_address(main, 'mainnet') is True
@@ -81,11 +81,11 @@ def test_valid_syscoin_address(main_valid_syscoin_address, test_valid_syscoin_ad
     assert is_valid_syscoin_address(test, 'testnet') is True
 
 
-def test_invalid_syscoin_address(main_invalid_syscoin_address, test_invalid_syscoin_address):
+def test_invalid_syscoin_address(mn_invalid_syscoin_address, tn_invalid_syscoin_address):
     from syscoinlib import is_valid_syscoin_address
 
-    main = main_invalid_syscoin_address
-    test = test_invalid_syscoin_address
+    main = mn_invalid_syscoin_address
+    test = tn_invalid_syscoin_address
 
     assert is_valid_syscoin_address(main) is False
     assert is_valid_syscoin_address(main, 'mainnet') is False
