@@ -72,7 +72,7 @@ class GovernanceObject(BaseModel):
     absolute_yes_count = IntegerField(default=0)
 
     class Meta:
-        db_table = 'governance_objects'
+        table_name = 'governance_objects'
 
     # sync syscoind gobject list with our local relational DB backend
     @classmethod
@@ -263,7 +263,7 @@ class Setting(BaseModel):
     updated_at = DateTimeField(default=datetime.datetime.utcnow())
 
     class Meta:
-        db_table = 'settings'
+        table_name = 'settings'
 
 
 class Proposal(GovernanceClass, BaseModel):
@@ -282,7 +282,7 @@ class Proposal(GovernanceClass, BaseModel):
     govobj_type = SYSCOIND_GOVOBJ_TYPES['proposal']
 
     class Meta:
-        db_table = 'proposals'
+        table_name = 'proposals'
 
     def is_valid(self):
         import syscoinlib
@@ -431,7 +431,7 @@ class Superblock(BaseModel, GovernanceClass):
     only_masternode_can_submit = True
 
     class Meta:
-        db_table = 'superblocks'
+        table_name = 'superblocks'
 
     def is_valid(self):
         import syscoinlib
@@ -552,7 +552,7 @@ class Signal(BaseModel):
     updated_at = DateTimeField(default=datetime.datetime.utcnow())
 
     class Meta:
-        db_table = 'signals'
+        table_name = 'signals'
 
 
 class Outcome(BaseModel):
@@ -561,7 +561,7 @@ class Outcome(BaseModel):
     updated_at = DateTimeField(default=datetime.datetime.utcnow())
 
     class Meta:
-        db_table = 'outcomes'
+        table_name = 'outcomes'
 
 
 class Vote(BaseModel):
@@ -574,7 +574,7 @@ class Vote(BaseModel):
     object_hash = CharField(max_length=64)
 
     class Meta:
-        db_table = 'votes'
+        table_name = 'votes'
 
 
 class Transient(object):
@@ -698,7 +698,7 @@ def check_db_sane():
     for model in db_models():
         if not getattr(model, 'table_exists')():
             missing_table_models.append(model)
-            printdbg("[warning]: Table for %s (%s) doesn't exist in DB." % (model, model._meta.db_table))
+            printdbg("[warning]: Table for %s (%s) doesn't exist in DB." % (model, model._meta.table_name))
 
     if missing_table_models:
         printdbg("[warning]: Missing database tables. Auto-creating tables.")
@@ -726,7 +726,7 @@ def check_db_schema_version():
         printdbg("[info]: Schema version mis-match. Syncing tables.")
         try:
             existing_table_names = db.get_tables()
-            existing_models = [m for m in db_models() if m._meta.db_table in existing_table_names]
+            existing_models = [m for m in db_models() if m._meta.table_name in existing_table_names]
             if (existing_models):
                 printdbg("[info]: Dropping tables...")
                 db.drop_tables(existing_models, safe=False, cascade=False)
